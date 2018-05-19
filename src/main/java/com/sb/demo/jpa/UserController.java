@@ -6,7 +6,9 @@
 package com.sb.demo.jpa;
 
 import java.util.List;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,5 +27,10 @@ public class UserController {
     @RequestMapping(value = {"/list", "/listAll"})
     public List<User> getUsers() {
         return userService.findAll();
+    }
+
+    @RequestMapping(value = {"/save"})
+    public void save(User user) {
+        System.out.println(ToStringBuilder.reflectionToString(user));
     }
 }

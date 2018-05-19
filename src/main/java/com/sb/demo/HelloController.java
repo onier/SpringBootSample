@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author MyPC
  */
 @RestController
+@RequestMapping("/hello") 
 public class HelloController {
 
     @RequestMapping("/hello")

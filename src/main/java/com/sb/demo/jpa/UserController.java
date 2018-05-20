@@ -5,10 +5,9 @@
  */
 package com.sb.demo.jpa;
 
+import com.sb.demo.mybatis.OrganizationMapper;
 import java.util.List;
-import org.apache.commons.lang.builder.ToStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +22,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrganizationMapper organizationMapper;
 
     @RequestMapping(value = {"/list", "/listAll"})
     public List<User> getUsers() {
@@ -31,6 +32,7 @@ public class UserController {
 
     @RequestMapping(value = {"/save"})
     public void save(User user) {
-        System.out.println(ToStringBuilder.reflectionToString(user));
+        userService.addUser(user);
     }
+    
 }

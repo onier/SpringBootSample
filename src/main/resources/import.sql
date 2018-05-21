@@ -34,6 +34,9 @@ create table org(
  id bigint not null AUTO_INCREMENT,
 name varchar(1024),
 description varchar(1024),
-primary key(id));;
+depth int ,
+parent_id bigint,
+org_path varchar(1024),
+primary key(id));
 
  

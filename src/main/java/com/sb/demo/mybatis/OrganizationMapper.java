@@ -5,9 +5,10 @@
  */
 package com.sb.demo.mybatis;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Select;
 
 /**
  *
@@ -16,8 +17,11 @@ import org.apache.ibatis.annotations.SelectKey;
 @Mapper
 public interface OrganizationMapper {
 
-    @Insert("INSERT INTO org(name,description) VALUES(#{name}, #{description})")
+    @Insert("INSERT INTO org(name,description,depth,parent_id,org_path) VALUES(#{name}, #{description}, #{depth}, #{parent_id}, #{org_path})")
 //    @SelectKey(statement = "call identity()", keyProperty = "id", before = false, resultType = Long.class)
     void insert(Organization organization);
 //    Organization findUserByID(@Param("id") String id);
+
+    @Select("select * from org")
+    List<Organization> findAll();
 }

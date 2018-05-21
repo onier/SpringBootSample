@@ -21,6 +21,7 @@ public class User {
 
     private String userName;
     private String password;
+    private String organization;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -68,6 +69,20 @@ public class User {
      */
     public void setId(long id) {
         this.id = id;
+    }
+
+    /**
+     * @return the organization
+     */
+    public String getOrganization() {
+        return organization;
+    }
+
+    /**
+     * @param organization the organization to set
+     */
+    public void setOrganization(String organization) {
+        this.organization = organization;
     }
 
 }

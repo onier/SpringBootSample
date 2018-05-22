@@ -9,8 +9,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
 
 /**
@@ -26,8 +28,9 @@ public interface OrganizationMapper {
      * @param organization
      */
     @Insert("INSERT INTO org(name,description,depth,parent_id,org_path) VALUES(#{name}, #{description}, #{depth}, #{parent_id}, #{org_path})")
+    @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = int.class)
     void insert(Organization organization);
-    
+
     @Update("UPDATE org AS o SET  o.`name`=#{name},o.`description`=#{description},o.`depth`=#{depth},o.`parent_id`=#{parent_id},o.`org_path`=#{org_path} WHERE o.`id`=#{id};")
     void update(Organization organization);
 

@@ -12,6 +12,7 @@ import com.sb.demo.mybatis.OrganizationMapper;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -67,9 +68,43 @@ public class UserTest {
 
     @Test
     public void testQuery() {
-        Organization o = organizationMapper.findOrganization(1);
+        System.out.println("testQuery");
+        Organization o = organizationMapper.findOrganization("1");
         System.out.println(ToStringBuilder.reflectionToString(o));
-        o = organizationMapper.findOrganization(2);
+        o = organizationMapper.findOrganization("2");
         System.out.println(ToStringBuilder.reflectionToString(o));
+    }
+
+    @Test
+    public void delete() {
+        organizationMapper.deleteOrganization("13");
+        organizationMapper.deleteOrganization("13");
+    }
+
+    @Test
+    public void testUpdate() {
+        Organization org = organizationMapper.findOrganizationBean("1");
+        org.setName("社会组织");
+        org.setDepth(0);
+        organizationMapper.update(org);
+    }
+
+    @Test
+    public void testfindOrganizationByParentID() {
+        System.out.println("testfindOrganizationByParentID");
+        List<Organization> orgs = organizationMapper.findOrganizationByParentID("1");
+        orgs.forEach(new Consumer<Organization>() {
+            @Override
+            public void accept(Organization t) {
+                System.out.println(ToStringBuilder.reflectionToString(t));
+            }
+        });
+        orgs = organizationMapper.findOrganizationByParentID("11");
+        orgs.forEach(new Consumer<Organization>() {
+            @Override
+            public void accept(Organization t) {
+                System.out.println(ToStringBuilder.reflectionToString(t));
+            }
+        });
     }
 }

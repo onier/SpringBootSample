@@ -47,17 +47,19 @@ public class UserTest {
         System.out.println("addUsers");
     }
 
-//    @Test
-//    public void addOrg() {
-//        System.out.println(Charset.defaultCharset());
-//        System.out.println("addOrg");
-//        for (int i = 0; i < 10; i++) {
-//            Organization org = new Organization();
-//            org.setDescription("组织描述" + i);
-//            org.setName("组织" + i);
-//            organizationMapper.insert(org);;
-//        }
-//    }
+    @Test
+    public void addOrg() {
+        System.out.println(Charset.defaultCharset());
+        System.out.println("addOrg");
+        for (int i = 0; i < 10; i++) {
+            Organization org = new Organization();
+            org.setDescription("组织描述" + i);
+            org.setName("组织" + i);
+            organizationMapper.insert(org);
+            System.out.println(org.getId());
+        }
+    }
+
     @Test
     public void list() {
         List<Organization> os = organizationMapper.findAll();

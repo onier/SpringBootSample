@@ -21,26 +21,26 @@ public class UserService {
     @Autowired
     private UserRespority userRespority;
 
-    public List<User> findAll() {
-        List<User> result = new ArrayList<>();
-        userRespority.findAll().forEach(new Consumer<User>() {
+    public List<UserEntity> findAll() {
+        List<UserEntity> result = new ArrayList<>();
+        userRespority.findAll().forEach(new Consumer<UserEntity>() {
             @Override
-            public void accept(User t) {
+            public void accept(UserEntity t) {
                 result.add(t);
             }
         });
         return result;
     }
 
-    public void addUser(User user) {
+    public void addUser(UserEntity user) {
         userRespority.save(user);
     }
 
-    public void deleteUser(User user) {
+    public void deleteUser(UserEntity user) {
         userRespority.delete(user);
     }
 
-    public User findUserById(Long id) {
+    public UserEntity findUserById(Long id) {
         return userRespority.findById(id).get();
     }
 }

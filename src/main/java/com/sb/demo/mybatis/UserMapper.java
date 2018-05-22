@@ -5,11 +5,13 @@
  */
 package com.sb.demo.mybatis;
 
-import com.sb.demo.jpa.User;
 import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 
 /**
  *
@@ -18,9 +20,20 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface UserMapper {
 
-    @Insert("insert into user(userName,password，organization） value(#{userName},#{password},#{organization})")
+    @Insert("INSERT INTO USER(user_name,PASSWORD,email,PROFILE,org_id) VALUES (#{userName},#{password},#{email},#{profile},#{org_id});")
+    @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = int.class)
     void insert(User user);
 
-    @Select("SELECT	* FROM org AS a LEFT JOIN org AS b ON a.`parent_id`=b.`id`;")
+    @Select("SELECT * FROM user;")
+    @Results(
+            @Result(property = "userName", column = "user_name")
+    )
     public List<User> findAll();
+
+    @Select("SELECT * FROM USER LEFT JOIN org ON user.`org_id`=org.`id`;")
+    @Results({
+        @Result(property = "userName", column = "user_name")
+        ,@Result(property = "org_name", column = "name")
+    })
+    public List<User> findAllUser();
 }

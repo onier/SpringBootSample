@@ -7,6 +7,7 @@ package com.sb.demo.jpa;
 
 import com.sb.demo.mybatis.Organization;
 import com.sb.demo.mybatis.OrganizationMapper;
+import com.sb.demo.mybatis.User;
 import com.sb.demo.mybatis.UserMapper;
 import com.sb.demo.util.CommonUtils;
 import com.sb.demo.util.CommonUtils.Status;

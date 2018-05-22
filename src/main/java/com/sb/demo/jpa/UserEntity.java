@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(schema = "kc_user")
-public class User {
+public class UserEntity {
 
     private String userName;
     private String password;
@@ -26,7 +26,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    public User() {
+    public UserEntity() {
     }
 
     /**

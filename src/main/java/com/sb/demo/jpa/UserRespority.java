@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * @author MyPC
  */
 @Repository
-public interface UserRespority extends CrudRepository<User, Long> {
+public interface UserRespority extends CrudRepository<UserEntity, Long> {
 
 }

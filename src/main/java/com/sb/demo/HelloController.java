@@ -6,6 +6,7 @@
 package com.sb.demo;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class HelloController {
 
     @RequestMapping("/hello")
     @PreAuthorize("hasAnyAuthority('All')")
-    public String hello() {
-        return "Hello!";
+    public String hello(Authentication authentication) {
+        return "Hello!" + authentication.getAuthorities() + "   " + authentication.getAuthorities() + " " + authentication.getName();
     }
 }

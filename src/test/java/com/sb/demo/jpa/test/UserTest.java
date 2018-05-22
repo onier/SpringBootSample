@@ -19,6 +19,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -44,15 +46,45 @@ public class UserTest {
 
     @Test
     public void addUsers() {
+//        PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 //        System.out.println("addUsers");
 //        User user = new User();
-//        user.setEmail("282052309@qq.com");
+//        user.setEmail("user1@qq.com");
 //        user.setOrg_id(15);
-//        user.setPassword("password");
+//        user.setPassword(passwordEncoder.encode("user1"));
 //        user.setProfile("profle");
-//        user.setUserName("username");
+//        user.setUserName("user1");
 //        userMapper.insert(user);
 //        System.out.println(user.getId());
+//
+//        user = new User();
+//        user.setEmail("user2@qq.com");
+//        user.setOrg_id(15);
+//        user.setPassword(passwordEncoder.encode("user2"));
+//        user.setProfile("profle2");
+//        user.setUserName("user2");
+//        userMapper.insert(user);
+//        System.out.println(user.getId());
+//
+//        user = new User();
+//        user.setEmail("user3@qq.com");
+//        user.setOrg_id(15);
+//        user.setPassword(passwordEncoder.encode("user3"));
+//        user.setProfile("profle3");
+//        user.setUserName("user3");
+//        userMapper.insert(user);
+//        System.out.println(user.getId());
+    }
+
+    @Test
+    public void testQuery() {
+        System.out.println("testQuery");
+        User user = userMapper.findUserByName("user1");
+        System.out.println(ToStringBuilder.reflectionToString(user));
+        user = userMapper.findUserByName("user3m");
+        System.out.println(ToStringBuilder.reflectionToString(user));
+        user = userMapper.findUserByName("user1@qq.com");
+        System.out.println(ToStringBuilder.reflectionToString(user));
     }
 
     @Test

@@ -8,6 +8,7 @@ package com.sb.demo.mybatis;
 import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -36,4 +37,10 @@ public interface UserMapper {
         ,@Result(property = "org_name", column = "name")
     })
     public List<User> findAllUser();
+
+    @Select("SELECT * FROM USER WHERE user_name=#{userName} OR email=#{userName};")
+    @Results(
+            @Result(property = "userName", column = "user_name")
+    )
+    User findUserByName(@Param("userName") String userName);
 }

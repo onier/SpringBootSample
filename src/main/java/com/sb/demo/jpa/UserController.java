@@ -12,7 +12,10 @@ import com.sb.demo.mybatis.UserMapper;
 import com.sb.demo.util.CommonUtils;
 import com.sb.demo.util.CommonUtils.Status;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +38,7 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
+    @PreAuthorize("hasAnyAuthority('Bll')")
     @RequestMapping(value = {"/list", "/listAll"})
     public List<User> getUsers() {
         return userMapper.findAll();

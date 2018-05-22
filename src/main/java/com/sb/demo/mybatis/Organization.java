@@ -5,6 +5,8 @@
  */
 package com.sb.demo.mybatis;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author MyPC
@@ -14,8 +16,10 @@ public class Organization {
     private long id = 0;
     private String name;
     private String description;
+    private String parentName;
     private int depth;
     private long parent_id;
+//    @JsonIgnore
     private String org_path;
 
     public Organization() {
@@ -103,6 +107,20 @@ public class Organization {
      */
     public void setOrg_path(String org_path) {
         this.org_path = org_path;
+    }
+
+    /**
+     * @return the parentName
+     */
+    public String getParentName() {
+        return parentName;
+    }
+
+    /**
+     * @param parentName the parentName to set
+     */
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
 
 }

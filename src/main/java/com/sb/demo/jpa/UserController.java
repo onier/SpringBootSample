@@ -5,6 +5,7 @@
  */
 package com.sb.demo.jpa;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.sb.demo.mybatis.Organization;
 import com.sb.demo.mybatis.OrganizationMapper;
 import com.sb.demo.mybatis.UserMapper;
@@ -41,6 +42,12 @@ public class UserController {
         userMapper.insert(user);
     }
 
+    @RequestMapping(value = {"/listOrgs", "getOrgs"})
+    public List<Organization> getOrganizations() {
+        return organizationMapper.findAll();
+    }
+    
+    @RequestMapping(value = {"/saveOrg"})
     public void save(Organization organization) {
         organizationMapper.insert(organization);
     }

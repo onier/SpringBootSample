@@ -46,23 +46,30 @@ public class UserTest {
         System.out.println("addUsers");
     }
 
-    @Test
-    public void addOrg() {
-        System.out.println(Charset.defaultCharset());
-        System.out.println("addOrg");
-        for (int i = 0; i < 10; i++) {
-            Organization org = new Organization();
-            org.setDescription("组织描述" + i);
-            org.setName("组织" + i);
-            organizationMapper.insert(org);;
-        }
-    }
-
+//    @Test
+//    public void addOrg() {
+//        System.out.println(Charset.defaultCharset());
+//        System.out.println("addOrg");
+//        for (int i = 0; i < 10; i++) {
+//            Organization org = new Organization();
+//            org.setDescription("组织描述" + i);
+//            org.setName("组织" + i);
+//            organizationMapper.insert(org);;
+//        }
+//    }
     @Test
     public void list() {
         List<Organization> os = organizationMapper.findAll();
         for (Organization o : os) {
             System.out.println(ToStringBuilder.reflectionToString(o));
         }
+    }
+
+    @Test
+    public void testQuery() {
+        Organization o = organizationMapper.findOrganization(1);
+        System.out.println(ToStringBuilder.reflectionToString(o));
+        o = organizationMapper.findOrganization(2);
+        System.out.println(ToStringBuilder.reflectionToString(o));
     }
 }

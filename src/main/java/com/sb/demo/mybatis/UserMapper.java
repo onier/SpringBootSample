@@ -21,6 +21,6 @@ public interface UserMapper {
     @Insert("insert into user(userName,password，organization） value(#{userName},#{password},#{organization})")
     void insert(User user);
 
-    @Select("select * from user")
+    @Select("SELECT	* FROM org AS a LEFT JOIN org AS b ON a.`parent_id`=b.`id`;")
     public List<User> findAll();
 }

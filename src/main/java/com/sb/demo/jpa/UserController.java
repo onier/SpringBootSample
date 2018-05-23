@@ -38,7 +38,7 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @PreAuthorize("hasAnyAuthority('Bll')")
+//    @PreAuthorize("hasAnyAuthority('Bll')")
     @RequestMapping(value = {"/list", "/listAll"})
     public List<User> getUsers() {
         return userMapper.findAll();

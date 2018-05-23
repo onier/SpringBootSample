@@ -7,9 +7,14 @@ package com.sb.demo.security;
 
 import com.sb.demo.mybatis.User;
 import com.sb.demo.mybatis.UserMapper;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.RememberMeAuthenticationProvider;
@@ -20,10 +25,17 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
@@ -45,16 +57,41 @@ public class DemoSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        super.configure(web);
+        web.ignoring().antMatchers("/global/**");
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        return source;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
-                .anyRequest().fullyAuthenticated()
-                .and()
-                .formLogin();
+                .antMatchers("/hello/**").permitAll()
+                .antMatchers("/user/**").authenticated();
+        // Custom login form configurer to allow for non-standard HTTP-methods (eg. LOCK)
+        CustomFormLoginConfig<HttpSecurity> loginConfig = new CustomFormLoginConfig<HttpSecurity>();
+        loginConfig.loginProcessingUrl("/user/authentication")
+                .successHandler(new AuthenticationSuccessHandler() {
+                    @Override
+                    public void onAuthenticationSuccess(HttpServletRequest hsr, HttpServletResponse hsr1, Authentication a) throws IOException, ServletException {
+                        hsr1.setStatus(HttpServletResponse.SC_OK);
+                    }
+                }).failureHandler(new AuthenticationFailureHandler() {
+            @Override
+            public void onAuthenticationFailure(HttpServletRequest hsr, HttpServletResponse hsr1, AuthenticationException ae) throws IOException, ServletException {
+                hsr1.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            }
+        }).usernameParameter("j_username")
+                .passwordParameter("j_password")
+                .permitAll();
+
+        http.apply(loginConfig);
     }
 
     @Override
@@ -70,6 +107,8 @@ public class DemoSecurity extends WebSecurityConfigurerAdapter {
             }
         });
         auth.authenticationProvider(daoAuthenticationProvider);
+        RememberMeAuthenticationProvider rememberMeAuthenticationProvider = new RememberMeAuthenticationProvider("123456");
+        auth.authenticationProvider(rememberMeAuthenticationProvider);
     }
 
 }

@@ -5,8 +5,9 @@
  */
 package com.sb.demo;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
 
     @RequestMapping("/hello")
-    @PreAuthorize("hasAnyAuthority('All')")
+//    @PreAuthorize("hasAnyAuthority('All')")
     public String hello(Authentication authentication) {
         return "Hello!" + authentication.getAuthorities() + "   " + authentication.getAuthorities() + " " + authentication.getName();
+    }
+
+    @RequestMapping("/hello2")
+    public String hello2(@AuthenticationPrincipal User user) {
+        return "Hello1";
+    }
+
+    @RequestMapping("/hello1")
+    public String hello1() {
+        return "Hello1";
     }
 }

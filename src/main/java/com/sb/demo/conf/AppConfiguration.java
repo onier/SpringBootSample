@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSessionListener;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 /**
  *
@@ -25,7 +26,8 @@ public class AppConfiguration {
     FilterRegistrationBean myFilterRegistration() {
         FilterRegistrationBean frb = new FilterRegistrationBean();
         frb.setFilter(new AppFilter());
-        frb.setUrlPatterns(Arrays.asList("/*"));
+        frb.setUrlPatterns(Arrays.asList("*"));
+        frb.setOrder(0);
         return frb;
     }
 
@@ -67,4 +69,5 @@ public class AppConfiguration {
             }
         };
     }
+
 }

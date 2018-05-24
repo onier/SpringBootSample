@@ -1,6 +1,6 @@
 $(function () {
     function getOrgs() {
-        var orgJson = $.getJSON({url: "http://localhost:2018/user/listOrgs", async: false});
+        var orgJson = $.getJSON({url: "/user/listOrgs", async: false});
         var orgs = orgJson.responseJSON;
         var select = document.getElementById("createORGListSelect");
         for (var n = 0; n < orgs.length; n++) {
@@ -33,7 +33,7 @@ $(function () {
     $('#createORG').on("click", function () {
         $.ajax({
             type: 'POST',
-            url: "http://localhost:2018/user/saveOrg",
+            url: "/user/saveOrg",
             dataType: "json",
             data: {name: $('#createORGname').val(), description: $('#createORGtext').val(), parent_id: $('#createORGListSelect').val()},
             success: function (data) {
@@ -62,7 +62,7 @@ $(function () {
             var id = oData[0].id;
             $.ajax({
                 type: 'POST',
-                url: "http://localhost:2018/user/deleteOrg/" + id,
+                url: "/user/deleteOrg/" + id,
                 dataType: "json",
                 success: function (data) {
 //                    initOrg();
@@ -86,7 +86,7 @@ $(function () {
     $("#editorORGSubmit").on("click", function () {
         $.ajax({
             type: 'POST',
-            url: "http://localhost:2018/user/editor",
+            url: "/user/editor",
             dataType: "json",
             data: {id: select.id, name: $('#editorORGname').val(), description: $('#editorORGtext').val(), parent_id: $('#editorORGListSelect').val()},
             success: function (data) {

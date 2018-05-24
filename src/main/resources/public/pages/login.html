@@ -79,7 +79,7 @@
 //                    dataType: "json",
                     data: {j_username: $('#username').val(), j_password: $('#password').val()},
                     success: function (data) {
-                        location.reload();
+                        window.location.href = "index.html"
                     },
                     error: function (data) {
                         alert(data);

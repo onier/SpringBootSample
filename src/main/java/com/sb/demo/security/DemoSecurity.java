@@ -5,6 +5,7 @@
  */
 package com.sb.demo.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sb.demo.mybatis.User;
 import com.sb.demo.mybatis.UserMapper;
 import java.io.IOException;
@@ -81,6 +82,8 @@ public class DemoSecurity extends WebSecurityConfigurerAdapter {
                     @Override
                     public void onAuthenticationSuccess(HttpServletRequest hsr, HttpServletResponse hsr1, Authentication a) throws IOException, ServletException {
                         hsr1.setStatus(HttpServletResponse.SC_OK);
+                        ObjectMapper mapper = new ObjectMapper();
+                        mapper.writeValue(hsr1.getOutputStream(), a.getPrincipal());
                     }
                 }).failureHandler(new AuthenticationFailureHandler() {
             @Override

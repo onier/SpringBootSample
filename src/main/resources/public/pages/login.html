@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                            <input type="checkbox" name="remember-me" id="remember-me" />Remember Me
                                         </label>
                                     </div>
                                     <!-- Change this to a button or input when using this as a form -->
@@ -73,11 +73,12 @@
         <script src="../dist/js/sb-admin-2.js"></script>
         <script>
             $("#login").on("click", function () {
+                var isChecked = document.getElementById("remember-me").checked ? "on" : "off";
                 $.ajax({
                     type: 'POST',
                     url: "/user/authentication",
 //                    dataType: "json",
-                    data: {j_username: $('#username').val(), j_password: $('#password').val()},
+                    data: {username: $('#username').val(), password: $('#password').val(), rememberMe: isChecked},
                     success: function (data) {
                         window.location.href = "index.html"
                     },

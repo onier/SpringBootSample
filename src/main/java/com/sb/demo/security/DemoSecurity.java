@@ -26,6 +26,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -76,7 +77,7 @@ public class DemoSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/hello/**").permitAll()
                 .antMatchers("/user/**").authenticated();
         // Custom login form configurer to allow for non-standard HTTP-methods (eg. LOCK)
-        CustomFormLoginConfig<HttpSecurity> loginConfig = new CustomFormLoginConfig<HttpSecurity>();
+        FormLoginConfigurer<HttpSecurity> loginConfig = new FormLoginConfigurer<HttpSecurity>();
         loginConfig.loginProcessingUrl("/user/authentication")
                 .successHandler(new AuthenticationSuccessHandler() {
                     @Override

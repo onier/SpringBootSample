@@ -33,14 +33,14 @@ public interface UserMapper {
 
     @Select("SELECT * FROM USER LEFT JOIN org ON user.`org_id`=org.`id`;")
     @Results({
-        @Result(property = "userName", column = "user_name")
-        ,@Result(property = "org_name", column = "name")
+        @Result(property = "userName", column = "user_name", typeHandler = com.sb.demo.mybatis.StringTypeHandler.class)
+        ,@Result(property = "org_name", column = "name", typeHandler = com.sb.demo.mybatis.StringTypeHandler.class)
     })
     public List<User> findAllUser();
 
     @Select("SELECT * FROM USER WHERE user_name=#{userName} OR email=#{userName};")
     @Results(
-            @Result(property = "userName", column = "user_name")
+            @Result(property = "userName", column = "user_name", typeHandler = com.sb.demo.mybatis.StringTypeHandler.class)
     )
     User findUserByName(@Param("userName") String userName);
 }

@@ -127,7 +127,7 @@ public class DemoSecurity extends WebSecurityConfigurerAdapter {
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 User user = userMapper.findUserByName(username);
                 List<SimpleGrantedAuthority> grants = Arrays.asList(new SimpleGrantedAuthority("All"));
-                org.springframework.security.core.userdetails.User u = new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), grants);
+                org.springframework.security.core.userdetails.User u = new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword().getPassword(), grants);
                 return u;
             }
         });

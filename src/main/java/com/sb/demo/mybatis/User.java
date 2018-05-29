@@ -9,11 +9,12 @@ public class User {
 
     private long id;
     private String userName;
-    private String password;
+    private PW password;
     private String email;
     private String profile;
     private long org_id;
     private String org_name;
+
     public User() {
     }
 
@@ -34,14 +35,14 @@ public class User {
     /**
      * @return the password
      */
-    public String getPassword() {
+    public PW getPassword() {
         return password;
     }
 
     /**
      * @param password the password to set
      */
-    public void setPassword(String password) {
+    public void setPassword(PW password) {
         this.password = password;
     }
 

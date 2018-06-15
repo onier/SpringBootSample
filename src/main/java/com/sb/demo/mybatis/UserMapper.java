@@ -21,7 +21,7 @@ import org.apache.ibatis.annotations.SelectKey;
 @Mapper
 public interface UserMapper {
 
-    @Insert("INSERT INTO USER(user_name,PASSWORD,email,PROFILE,org_id) VALUES (#{userName},#{password},#{email},#{profile},#{org_id});")
+    @Insert("INSERT INTO user(user_name,PASSWORD,email,PROFILE,org_id) VALUES (#{userName},#{password},#{email},#{profile},#{org_id});")
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = int.class)
     void insert(User user);
 
@@ -31,14 +31,14 @@ public interface UserMapper {
     )
     public List<User> findAll();
 
-    @Select("SELECT * FROM USER LEFT JOIN org ON user.`org_id`=org.`id`;")
+    @Select("SELECT * FROM user LEFT JOIN org ON user.`org_id`=org.`id`;")
     @Results({
         @Result(property = "userName", column = "user_name", typeHandler = com.sb.demo.mybatis.StringTypeHandler.class)
         ,@Result(property = "org_name", column = "name", typeHandler = com.sb.demo.mybatis.StringTypeHandler.class)
     })
     public List<User> findAllUser();
 
-    @Select("SELECT * FROM USER WHERE user_name=#{userName} OR email=#{userName};")
+    @Select("SELECT * FROM user WHERE user_name=#{userName} OR email=#{userName};")
     @Results(
             @Result(property = "userName", column = "user_name", typeHandler = com.sb.demo.mybatis.StringTypeHandler.class)
     )

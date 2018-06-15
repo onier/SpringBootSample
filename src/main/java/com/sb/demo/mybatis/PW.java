@@ -6,7 +6,6 @@
 package com.sb.demo.mybatis;
 
 /**
- *
  * @author MyPC
  */
 public class PW {

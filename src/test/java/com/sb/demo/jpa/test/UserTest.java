@@ -168,3 +168,13 @@ public class UserTest {
 //        });
 //    }
 }
+
+
+  MongoClient mongoClient = MongoClients.create("mongodb://192.168.1.97:30001");
+        try (ClientSession clientSession = mongoClient.startSession()) {
+            clientSession.startTransaction();
+            mongoClient.getDatabase("db1").getCollection("c1").insertOne(clientSession, new Document("a", "b"));
+            mongoClient.getDatabase("db2").getCollection("c2").insertOne(clientSession, new Document("a", "b"));
+            int n = 1 / 0;
+            clientSession.commitTransaction();
+        }
